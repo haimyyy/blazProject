@@ -1,10 +1,11 @@
 import * as actionsTypes from '../constants/actionsTypes'
 import jsonData from '../data/sidebar.json'
 
+/*
 export function loadData() {
     return function (dispatch) {
         console.log(jsonData)
-        fetch('sidebar.json').then(function(response) {
+        fetch('../data/sidebar.json').then(function(response) {
              if (!response.ok) {
                 throw Error(response.statusText);
             }
@@ -18,11 +19,23 @@ export function loadData() {
         });
     }
 }
+*/
 
 
-function loadDataInner(data) {
+export function loadData() {
     return{
         type: actionsTypes.LOAD_DATA,
-        data: data
+        reports: jsonData
+    }
+}
+export function updateSearchValue(value) {
+    return{
+        type: actionsTypes.UPDATE_SEARCH_VALUE,
+        value: value
+    }
+}
+export function updateSidebarView() {
+    return{
+        type: actionsTypes.UPDATE_SIDEBAR_VIEW
     }
 }

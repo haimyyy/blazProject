@@ -30,7 +30,7 @@ What you are looking at in the expected result is actually a part of the Blazeme
 3. When it is closed - the sidebar is not visible on screen.
 4. Make the sidebar full height of screen.
 5. If the amount of items in the sidebar do not fit in the visible screen, it is scrollable
-6. Refresh button reloads the data
+6. Refresh button reloads the data!
 7. Reports is a title for the sidebar, and alongside it is the count of the amount of reports from the supplied json.
 8. Grid is sorted based on updated time, using `updated` field.
 9. Button of up/down arrows to the right of the search toggles the sort order of the grid (ascending, descending). *(Optional)*

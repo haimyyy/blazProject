@@ -10,15 +10,18 @@ class SidebarContainer extends React.Component {
     constructor() {
         super();
         this.state = {
-            open: false
+            pageHeight: 0
         };
         this.handleToggle = this.handleToggle.bind(this)
     }
-    componentWillMount () {
+    componentWillMount() {
         this.props.actions.loadData()
     }
     handleToggle() {
-        this.setState({open: !this.state.open})
+        this.props.actions.updateSidebarView()
+    }
+    componentDidMount() {
+        this.setState({pageHeight: window.screen.availHeight})
     }
     render() {
         let styles = {
@@ -27,27 +30,33 @@ class SidebarContainer extends React.Component {
             },
             paper: {
                 width: 250,
-                margin: 20,
                 textAlign: 'center',
-                display: 'inline-block'
+                display: 'inline-block',
+                height: this.state.pageHeight
             }
         }
+
+        let blazMenu = this.props.sidebar.isDisplayed ? <Paper style={styles.paper} zDepth={2} >
+            <BlazMenu
+                amountReports={this.props.sidebar.reports.length}
+                reports={this.props.sidebar.reports}
+                updateSearchValue={this.props.actions.updateSearchValue}
+                searchValue={this.props.sidebar.searchValue}
+                pageHeight={this.state.pageHeight - 30}
+                updateSidebarView={this.props.actions.updateSidebarView}
+                loadData={this.props.actions.loadData}
+            />
+        </Paper> : null
 
         return (
             <div style={styles.container}>
                 <div>
                     <RaisedButton
-                        label="open sidebar"
+                        label={this.props.sidebar.isDisplayed ? "close sidebar" : "open sidebar"}
                         style={{float:'right'}}
                         onTouchTap={this.handleToggle}
                     />
-                    <Drawer open={this.state.open}>
-                        <BlazMenu></BlazMenu>
-                    </Drawer>
-                    <Paper style={styles.paper} zDepth={2} >
-                        <BlazMenu></BlazMenu>
-                    </Paper>
-
+                    {blazMenu}
                 </div>
             </div>
 
@@ -56,7 +65,7 @@ class SidebarContainer extends React.Component {
 }
 function mapStateToProps(state) {
     return {
-        state: state
+        sidebar: state.sidebar
     };
 }
 function mapDispatchToProps(dispatch) {

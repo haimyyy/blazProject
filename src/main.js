@@ -4,7 +4,7 @@ import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 import createLogger from 'redux-logger'
-import reducer from './reducer/rootReducer'
+import reducer from './rootReducer'
 import App from './App'
 const middleware = [ thunk ]
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
