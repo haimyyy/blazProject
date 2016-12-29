@@ -21,28 +21,28 @@ class SidebarContainer extends React.Component {
         this.props.actions.updateSidebarView()
     }
     componentDidMount() {
-        this.setState({pageHeight: window.screen.availHeight})
+        //found screen height and update the component
+        this.setState({pageHeight: window.innerHeight - 20})
     }
     render() {
         let styles = {
             container: {
-                padding: 30
+                paddingRight: 30
             },
             paper: {
                 width: 250,
                 textAlign: 'center',
                 display: 'inline-block',
-                height: this.state.pageHeight
+                height: this.state.pageHeight // body margin
             }
         }
-
+        // menu items
         let blazMenu = this.props.sidebar.isDisplayed ? <Paper style={styles.paper} zDepth={2} >
             <BlazMenu
-                amountReports={this.props.sidebar.reports.length}
                 reports={this.props.sidebar.reports}
                 updateSearchValue={this.props.actions.updateSearchValue}
                 searchValue={this.props.sidebar.searchValue}
-                pageHeight={this.state.pageHeight - 30}
+                pageHeight={this.state.pageHeight}
                 updateSidebarView={this.props.actions.updateSidebarView}
                 loadData={this.props.actions.loadData}
             />

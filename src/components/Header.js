@@ -6,15 +6,8 @@ import IconButton from 'material-ui/IconButton';
 class Header extends React.Component {
     constructor() {
         super();
-        this.state = {
-            open: false
-        };
-        this.handleToggle = this.handleToggle.bind(this)
+    }
 
-    }
-    handleToggle() {
-        this.props.updateSidebarView()
-    }
     render() {
         let styles = {
             title: {
@@ -42,21 +35,25 @@ class Header extends React.Component {
                 <span style={styles.title}>{this.props.text}</span>
                 <IconButton  style={styles.xButton}
                              tooltip="Close"
-                             onTouchTap={this.handleToggle}
-                >
+                             onTouchTap={this.props.updateSidebarView}>
                    <FaClose/>
                 </IconButton>
 
                 <IconButton  style={styles.xButton}
                              tooltip="Refresh"
-                             onTouchTap={this.props.loadData}
-                >
+                             onTouchTap={this.props.loadData}>
                     <FaRefresh/>
                 </IconButton>
             </div>
 
         );
     }
+}
+
+Header.propTypes = {
+    loadData: React.PropTypes.func, // function to refresh
+    updateSidebarView: React.PropTypes.func, // function to close the menu
+    text: React.PropTypes.string, // text title
 }
 
 export default Header

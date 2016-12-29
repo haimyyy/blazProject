@@ -35,5 +35,9 @@ class Search extends React.Component {
         );
     }
 }
+Search.propTypes = {
+    searchValue: React.PropTypes.string, // Search value
+    updateSearchValue: React.PropTypes.func, // function to update the Search value
+}
 
 export default Search

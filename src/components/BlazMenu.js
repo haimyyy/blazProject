@@ -6,6 +6,7 @@ import Header from './Header'
 import Search from './Search'
 import Divider from 'material-ui/Divider';
 import _ from 'lodash'
+
 class BlazMenu extends React.Component {
     constructor() {
         super();
@@ -15,18 +16,13 @@ class BlazMenu extends React.Component {
         this.compare = this.compare.bind(this)
     }
     componentDidMount() {
+        //found components (search and header) height and update the list height
         let headerHeight = ReactDOM.findDOMNode(this.refs.header).getBoundingClientRect().height
         let searchHeight = ReactDOM.findDOMNode(this.refs.search).getBoundingClientRect().height
-        this.setState({listHeight: this.props.pageHeight - searchHeight - headerHeight})
+        this.setState({listHeight: this.props.pageHeight - searchHeight - headerHeight -20 })// 20 => for padding
 
     }
-    /*componentDidUpdate(nextProps){
-     if (nextProps.pageHeight !== this.props.pageHeight) {
-     let headerHeight = ReactDOM.findDOMNode(this.refs.header).getBoundingClientRect().height
-     let searchHeight = ReactDOM.findDOMNode(this.refs.search).getBoundingClientRect().height
-     this.setState({listHeight: nextProps.pageHeight - searchHeight - headerHeight})
-     }
-     }*/
+    //Sort by update function
     compare(a,b){
         if (a.updated > b.updated)
             return -1;
@@ -42,13 +38,15 @@ class BlazMenu extends React.Component {
                 height: this.state.listHeight
             }
         }
-        let sortMenuItems
-        let menuItems
+        let menuItems // list of reports to show
+        let amountReports = 0 // reports amount
+
         if(this.props.reports.length > 0) {
-            sortMenuItems = this.props.reports
-            sortMenuItems.sort(this.compare)
-            menuItems = sortMenuItems.map((item,index) => {
-                if (_.includes(item.name.toLowerCase(), this.props.searchValue))
+            menuItems = this.props.reports
+            menuItems.sort(this.compare)
+            menuItems = menuItems.map((item,index) => {
+                if (_.includes(item.name.toLowerCase(), this.props.searchValue.toLowerCase())){
+                    amountReports++;
                     return <div key={index}>
                         <BlazMenuItem
                             key={index}
@@ -58,6 +56,7 @@ class BlazMenu extends React.Component {
                             location={item.location}/>
                         <Divider />
                     </div>
+                }
             })
         } else {
             menuItems = null
@@ -66,14 +65,15 @@ class BlazMenu extends React.Component {
             <div>
                 <Header
                     ref="header"
-                    text={"Reports " + this.props.amountReports}
+                    text={"Reports " + amountReports}
                     updateSidebarView={this.props.updateSidebarView}
                     loadData={this.props.loadData}
                 />
                 <Search
                     ref="search"
                     searchValue={this.props.searchValue}
-                    updateSearchValue={this.props.updateSearchValue}/>
+                    updateSearchValue={this.props.updateSearchValue}
+                />
                 <List style={styles.list}>
                     {menuItems}
                 </List>
@@ -81,6 +81,15 @@ class BlazMenu extends React.Component {
 
         );
     }
+}
+
+BlazMenu.propTypes = {
+    reports: React.PropTypes.array,
+    updateSearchValue: React.PropTypes.func,
+    searchValue: React.PropTypes.string,
+    pageHeight: React.PropTypes.number,
+    updateSidebarView: React.PropTypes.func,
+    loadData: React.PropTypes.func,
 }
 
 export default BlazMenu

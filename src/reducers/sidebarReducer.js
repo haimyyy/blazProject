@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux'
 import * as actionsTypes from '../constants/actionsTypes'
 import _ from 'lodash'
+
 let initialState = {
     reports: [],
     searchValue: '',
     isDisplayed: false
 }
+
 const sidebar = (state = initialState, action = undefined) => {
     let newState = _.cloneDeep(state);
     switch (action.type) {
