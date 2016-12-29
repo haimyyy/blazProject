@@ -1,6 +1,6 @@
 import React from 'react';
 import Divider from 'material-ui/Divider';
-
+import FaLocation from 'react-icons/lib/fa/location-arrow';
 var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
     "Jul", "August", "Sep", "Oct", "Nov", "Dec"
 ];
@@ -70,7 +70,23 @@ class BlazMenuItem extends React.Component {
                 float: 'left',
                 position: 'relative',
                 top: 25,
+                paddingRight: 12,
+                color: 'rgb(200,200,200)'
+            },
+            iconLocation:{
+                fontSize: 13,
+                float: 'left',
+                position: 'relative',
+                top: 25,
+                color: 'rgb(200,200,200)'
+            },
+            bottomType:{
+                fontSize: 13,
+                float: 'left',
+                position: 'relative',
+                top: 25,
                 paddingLeft: 12,
+                paddingRight: 5,
                 color: 'rgb(200,200,200)'
             }
         }
@@ -85,7 +101,10 @@ class BlazMenuItem extends React.Component {
                     </div>
                     <span style={styles.timeBottom}>{this.formatAMPM(date)}</span>
                 </div>
-                <span style={styles.bottom}>{this.props.type}</span>
+                <span style={styles.bottomType}>{this.props.type}</span>
+                <FaLocation
+                    style={styles.iconLocation}
+                />
                 <span style={styles.bottom}>{this.props.location}</span>
             </div>
         );

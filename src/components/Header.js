@@ -1,6 +1,8 @@
 import React from 'react';
-import FontIcon from 'material-ui/FontIcon';
+import FaClose from 'react-icons/lib/fa/close';
+import FaRefresh from 'react-icons/lib/fa/refresh';
 import IconButton from 'material-ui/IconButton';
+
 class Header extends React.Component {
     constructor() {
         super();
@@ -39,16 +41,17 @@ class Header extends React.Component {
             <div style={styles.container}>
                 <span style={styles.title}>{this.props.text}</span>
                 <IconButton  style={styles.xButton}
-                             tooltip="Font Icon"
+                             tooltip="Close"
                              onTouchTap={this.handleToggle}
                 >
-                   x
+                   <FaClose/>
                 </IconButton>
+
                 <IconButton  style={styles.xButton}
-                             tooltip="Font Icon"
+                             tooltip="Refresh"
                              onTouchTap={this.props.loadData}
                 >
-                    y
+                    <FaRefresh/>
                 </IconButton>
             </div>
 
