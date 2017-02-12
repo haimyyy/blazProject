@@ -1,5 +1,6 @@
 import React from "react";
 import * as sidebarActions from "../actions/sidebarActions";
+import * as betActions from "../actions/betActions";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import RaisedButton from "material-ui/RaisedButton";
@@ -7,6 +8,7 @@ import Drawer from "material-ui/Drawer";
 import BlazMenu from "../components/BlazMenu";
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
+import ListItems from '../components/ListItems';
 
 class SidebarContainer extends React.Component {
     constructor() {
@@ -47,9 +49,7 @@ class SidebarContainer extends React.Component {
                 height: this.state.pageHeight // body margin
             },
             paper2: {
-                width: '50%',
-                marginRight: '30%',
-                marginLeft: '30%',
+                width: '90%',
                 marginTop: 30,
                 textAlign: 'center',
                 height: 700,  // body margin
@@ -60,7 +60,8 @@ class SidebarContainer extends React.Component {
             },
             labelStyle:{
                 marginLeft: 5
-            }
+            },
+
         }
 
         // menu items
@@ -106,6 +107,28 @@ class SidebarContainer extends React.Component {
                             hintStyle={styles.labelStyle}
                             inputStyle={styles.labelStyle}
                             hintText="enter number"/>
+
+                        <ListItems num1={1.65} num2={2.45} num3={2.8}
+                                   listNumber={0}
+                                   isSelectedList={this.props.bet.selectedList === 0}
+                                   updateDualNumber={this.props.betActions.updateDualNumber}
+                                   betNumber={this.props.bet.betNumber}
+                                   updateSelectedList={this.props.betActions.updateSelectedList}/>
+                        <ListItems num1={2.65} num2={9} num3={5}
+                                   listNumber={1}
+                                   isSelectedList={this.props.bet.selectedList === 1}
+                                   updateDualNumber={this.props.betActions.updateDualNumber}
+                                   betNumber={this.props.bet.betNumber}
+                                   updateSelectedList={this.props.betActions.updateSelectedList}/>
+                        <ListItems num1={2.3} num2={2.45} num3={2.8}
+                                   listNumber={2}
+                                   isSelectedList={this.props.bet.selectedList === 2}
+                                   updateDualNumber={this.props.betActions.updateDualNumber}
+                                   betNumber={this.props.bet.betNumber}
+                                   updateSelectedList={this.props.betActions.updateSelectedList}/>
+
+
+
                     </Paper>
                     <RaisedButton
                         label={"calculate"}
@@ -120,12 +143,14 @@ class SidebarContainer extends React.Component {
 }
 function mapStateToProps(state) {
     return {
-        sidebar: state.sidebar
+        sidebar: state.sidebar,
+        bet: state.bet
     };
 }
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(sidebarActions, dispatch)
+        actions: bindActionCreators(sidebarActions, dispatch),
+        betActions: bindActionCreators(betActions, dispatch)
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(SidebarContainer);
